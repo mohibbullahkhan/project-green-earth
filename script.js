@@ -27,7 +27,7 @@ const displayPlantDetails = (plant) => {
     const detailsBox = document.getElementById("details-container");
     console.log(plant)
     detailsBox.innerHTML = `
-         <div class="bg-white p-2 shadow-lg rounded">
+         <div class="bg-white p-2 shadow-lg rounded ">
                     <img class="rounded mx-auto h-40 w-72" src="${plant.image}" alt="" >
                     <h2 class="font-bold my-2 cursor-pointer" onclick="loadPlantDetails(${plant.id})">${plant.name}</h2>
                     <p>${plant.description}</p>
@@ -35,15 +35,13 @@ const displayPlantDetails = (plant) => {
                         <button  class="bg-[#a9e1be] text-green-950 rounded-full p-1">${plant.category}</button>
                         <h2>৳${plant.price}</h2>
                     </div>
-                    <button id="cart-btn" class="cursor-pointer text-white bg-[#15803D] w-full p-2 rounded-full">Add to Cart</button>
+                    <button onclick="addToCart(${plant.id}, '${plant.name}', ${plant.price})" id="cart-btn-${plant.id}" class="cursor-pointer text-white bg-[#15803D] w-full p-2 rounded-full">Add to Cart</button>
                 </div>
     `;
     document.getElementById("my_modal_5").showModal();
     manageSpinner(false)
     return;
 }
-
-
 
 const loadCategory = () => {
   manageSpinner(true);
@@ -56,11 +54,7 @@ const displayCategory = (categories) =>{
     const allCategory = document.getElementById("all-category");
     allCategory.innerHTML = "";
 
-//    console.log(categories)
-  
-
     for(let category of categories){
-        // console.log(category);
         const btnDiv = document.createElement("div");
         btnDiv.innerHTML = `
         <button id="category-btn-${category.id}" class="my-2 category-btn cursor-pointer" onclick="loadTree(${category.id})">
@@ -68,13 +62,9 @@ const displayCategory = (categories) =>{
         </button>
         `;
         
-        
-         allCategory.append(btnDiv);
-        //  manageSpinner(false);
-        //  return;
+        allCategory.append(btnDiv);
     }
     manageSpinner(false);
-
 }
 
 loadCategory();
@@ -89,16 +79,13 @@ const loadTrees = () =>{
         document.getElementById("all-trees").style.backgroundColor = "green"
          document.getElementById("all-trees").style.color = "white"
     })
-
-
 }
 
 const displayAllTrees = (trees) =>{
     const treesDiv = document.getElementById("treesDiv");
     treesDiv.innerHTML = "";
-    // console.log(trees)
+    
     for(let tree of trees){
-        // console.log(tree)
         const btnTree = document.createElement("div");
         btnTree.innerHTML = `
             <div class="bg-white p-2 shadow-lg rounded">
@@ -109,17 +96,15 @@ const displayAllTrees = (trees) =>{
                         <button  class="bg-[#a9e1be] text-green-950 rounded-full p-1">${tree.category}</button>
                         <h2>৳${tree.price}</h2>
                     </div>
-                    <button class="cursor-pointer text-white bg-[#15803D] w-full p-2 rounded-full" id="cart-btn">Add to Cart</button>
+                    <button onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" class="cart-btn cursor-pointer text-white bg-[#15803D] w-full p-2 rounded-full" id="cart-btn-${tree.id}">Add to Cart</button>
                 </div>
         `
 
         treesDiv.append(btnTree);
     }
     manageSpinner(false)
-    
 }
 loadTrees()
-
 
 const loadTree = (id) => {
     manageSpinner(true)
@@ -133,8 +118,6 @@ const loadTree = (id) => {
         const clickBtn = document.getElementById(`category-btn-${id}`)
         clickBtn.classList.add("active");
         displayTree(data.plants)})
-    
-
 }
 
 const displayTree = (ones) => {
@@ -142,7 +125,6 @@ const displayTree = (ones) => {
     oneTree.innerHTML ="";
     for(let one of ones){
         const btnOne = document.createElement("div")
-       console.log(one)
         btnOne.innerHTML = `
          <div class="bg-white p-2 shadow-lg rounded">
                     <img class="rounded mx-auto h-40 w-72" src="${one.image}" alt="" >
@@ -150,9 +132,9 @@ const displayTree = (ones) => {
                     <p>${one.description}</p>
                     <div class="flex justify-between my-2">
                         <button onclick="loadPlantDetails(${one.id})" class="bg-[#a9e1be] text-green-950 rounded-full p-1">${one.category}</button>
-                        <h2>${one.price}</h2>
+                        <h2>৳${one.price}</h2>
                     </div>
-                    <button class="cursor-pointer text-white bg-[#15803D] w-full p-2 rounded-full" id="cart-btn">Add to Cart</button>
+                    <button onclick="addToCart(${one.id}, '${one.name}', ${one.price})" class="cart-btn cursor-pointer text-white bg-[#15803D] w-full p-2 rounded-full" id="cart-btn-${one.id}">Add to Cart</button>
                 </div>
         `
         oneTree.append(btnOne);
@@ -160,27 +142,80 @@ const displayTree = (ones) => {
     manageSpinner(false)
 }
 
-// const transactionData = [];
+// Cart functionality
+let cartItems = [];
+let cartTotal = 0;
 
-// // add to cart
-// document.getElementById("cart-btn").addEventListener("click", function(){
-//     const cartContainer = document.getElementById("cart-container");
-//     cartContainer.innerHTML = "";
+// Add to Cart Function
+const addToCart = (id, name, price) => {
+    // Check if item already exists in cart
+    const existingItem = cartItems.find(item => item.id === id);
+    
+    if (existingItem) {
+        // If item exists, increase quantity
+        existingItem.quantity += 1;
+    } else {
+        // If new item, add to cart
+        cartItems.push({
+            id: id,
+            name: name,
+            price: price,
+            quantity: 1
+        });
+    }
+    
+    updateCartDisplay();
+    updateCartTotal();
+}
 
-//     for(const data of transactionData){
-//         const div = document.createElement("div")
-//         div.innerHTML = `
-//         <div class="flex justify-between items-center bg-[#F0FDF4] p-2 mt-2">
-//                         <div>
-//                             <h4 class="font-bold">${loadTrees.name}</h4>
-//                             <p>৳${loadTrees.price} x 1</p>
-//                         </div>
-//                         <i class="fa-solid fa-xmark"></i>
+// Remove from Cart Function
+const removeFromCart = (id) => {
+    // Find item index
+    const itemIndex = cartItems.findIndex(item => item.id === id);
+    
+    if (itemIndex > -1) {
+        cartItems.splice(itemIndex, 1);
+    }
+    
+    updateCartDisplay();
+    updateCartTotal();
+}
 
-//                     </div>
-//         `;
+// Update Cart Display
+const updateCartDisplay = () => {
+    const cartContainer = document.getElementById("cart-container");
+    
+    // Clear existing cart items (but keep the summary)
+    const existingItems = cartContainer.querySelectorAll('.cart-item');
+    existingItems.forEach(item => item.remove());
+    
+    // Add each cart item
+    cartItems.forEach(item => {
+        const cartItemDiv = document.createElement("div");
+        cartItemDiv.className = "cart-item";
+        cartItemDiv.innerHTML = `
+            <div class="flex justify-between items-center bg-[#F0FDF4] p-2 mt-2 rounded">
+                <div>
+                    <h4 class="font-bold text-sm">${item.name}</h4>
+                    <p class="text-xs">৳${item.price} x ${item.quantity}</p>
+                </div>
+                <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        `;
+        
+        // Insert before cart summary
+        const cartSummary = document.getElementById("cart-summary");
+        cartContainer.insertBefore(cartItemDiv, cartSummary);
+    });
+}
 
-//         cartContainer.append(div);
-//     }
-// })
-
+// Update Cart Total
+const updateCartTotal = () => {
+    cartTotal = cartItems.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+    
+    document.getElementById("cart-total").textContent = `৳${cartTotal}`;
+}

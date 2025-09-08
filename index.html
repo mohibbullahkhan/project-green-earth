@@ -46,20 +46,21 @@
     </header>
 
     <!-- banner -->
-     <section class="h-[383px] bg-[#CFF0DC] md:flex justify-evenly items-center relative max-sm:items-center flex ">
-        <div class="banner-start  absolute left-1 bottom-0 ">
-            <img src="./assets/hero-leaf1.png" alt="" width="80%">
+     <section class="h-[383px] bg-[#CFF0DC] md:flex justify-evenly items-center relative  flex ">
+        <div class="banner-start  absolute left-1 bottom-0 hidden md:block">
+            <img src="./assets/hero-leaf1.png" alt="" width="">
         </div>
-        <div class="banner-center text-center space-y-4 z-50 ">
+        <div class="banner-center text-center space-y-4  ">
             <h1 class="text-4xl font-bold ">Plant a Tree, Grow a Future</h1>
             <p>Join our mission to plant 1 million trees and make the Earth greener for future generations.</p>
             <button><a class="btn bg-[#FACC15] rounded-2xl text-green-800 border-none">Get Involved</a></button>
 
         </div>
-        <div class="banner-end absolute right-[-80px] bottom-0 ">
-            <img src="./assets/hero-leaf2.png" alt="" width="80%">
+        <div class="banner-end absolute right-1  bottom-0  hidden md:block">
+            <img src="./assets/hero-leaf2.png" alt="" width="" class=" ">
         </div>
      </section>
+     
 
      
      <!-- choose trees options -->
@@ -72,7 +73,7 @@
         <div class="level-container mt-10 md:flex md:justify-center">
             <div id="category" class="category w-[90%] mx-auto md:w-[15%] ">
                 <h2 class="font-bold text-xl mb-5">Categories</h2>
-                <button id="all-trees" onclick="loadTrees() " class="active cursor-pointer">All Trees</button>
+                <button id="all-trees" onclick="loadTrees() " class="active cursor-pointer ">All Trees</button>
                 <div id="all-category" class="all-category ">
                     
                 </div>
@@ -82,10 +83,20 @@
                 
             </div>
             <!-- card section -->
-            <div class="cart w-[10%] ">
+            <div class="cart w-[10%] mx-auto">
                 <h2 class="text-xl font-bold">Your Cart</h2>
                 <div id="cart-container">
-                    
+                    <div id="cart-container" class="space-y-2">
+                 <!-- Items go here -->
+                    </div>
+
+                    <div id="cart-summary" class="mt-4 p-2 border-t">
+                        <div class="flex justify-between items-center">
+                            <strong>Total:</strong>
+                             <strong id="cart-total">৳0</strong>
+                        </div>
+                     </div>
+
                 </div>
             </div>
         </div>
@@ -113,16 +124,16 @@
      <!-- impact section -->
       <section class="bg-[#CFF0DC] md:h-[436px] mt-10">
         <h2 class="text-center font-bold text-2xl pt-20">Our Impact</h2>
-        <div class="block md:flex justify-center items-center gap-10 mt-10 mx-auto">
-            <div class="banner-start bg-white w-[350px] h-[156px] text-center  md:w-[516px] md:h-[156px] md:flex flex-col justify-center items-center ml-10 pt-10 md:pt-0">
+        <div class="block md:flex justify-center items-center gap-10 mt-10 ">
+            <div class="banner-start bg-white w-[300px] h-[156px] text-center  md:w-[516px] md:h-[156px] md:flex flex-col justify-center items-center ml-10 pt-10 md:pt-0">
                 <h1 class="text-green-800 font-bold text-2xl">500K+</h1>
                 <p>Trees Planted</p>
             </div>
-            <div class="banner-center bg-white w-[350px] h-[156px] text-center md:w-[516px] md:h-[156px] md:flex flex-col justify-center items-center ml-10 mt-5 mb-5 pt-10 md:pt-0">
+            <div class="banner-center bg-white w-[300px] h-[156px] text-center md:w-[516px] md:h-[156px] md:flex flex-col justify-center items-center ml-10 mt-5 mb-5 pt-10 md:pt-0">
                 <h1 class="text-green-800 font-bold text-2xl">120+</h1>
                 <p>Communities Involved</p>
             </div>
-            <div class="banner-end bg-white w-[350px] h-[156px] text-center md:w-[516px] md:h-[156px] md:flex flex-col justify-center items-center mr-10 ml-10 pt-10 md:pt-0">
+            <div class="banner-end bg-white w-[300px] h-[156px] text-center md:w-[516px] md:h-[156px] md:flex flex-col justify-center items-center mr-10 ml-10 pt-10 md:pt-0">
                 <h1 class="text-green-800 font-bold text-2xl">30+</h1>
                 <p>Countries Reached</p>
             </div>
