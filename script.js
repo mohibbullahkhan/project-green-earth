@@ -146,16 +146,16 @@ const displayTree = (ones) => {
 let cartItems = [];
 let cartTotal = 0;
 
-// Add to Cart Function
+
 const addToCart = (id, name, price) => {
-    // Check if item already exists in cart
     const existingItem = cartItems.find(item => item.id === id);
     
     if (existingItem) {
-        // If item exists, increase quantity
+
         existingItem.quantity += 1;
+
     } else {
-        // If new item, add to cart
+        
         cartItems.push({
             id: id,
             name: name,
@@ -170,7 +170,7 @@ const addToCart = (id, name, price) => {
 
 // Remove from Cart Function
 const removeFromCart = (id) => {
-    // Find item index
+   
     const itemIndex = cartItems.findIndex(item => item.id === id);
     
     if (itemIndex > -1) {
@@ -185,11 +185,10 @@ const removeFromCart = (id) => {
 const updateCartDisplay = () => {
     const cartContainer = document.getElementById("cart-container");
     
-    // Clear existing cart items (but keep the summary)
     const existingItems = cartContainer.querySelectorAll('.cart-item');
     existingItems.forEach(item => item.remove());
     
-    // Add each cart item
+    
     cartItems.forEach(item => {
         const cartItemDiv = document.createElement("div");
         cartItemDiv.className = "cart-item";
@@ -205,13 +204,13 @@ const updateCartDisplay = () => {
             </div>
         `;
         
-        // Insert before cart summary
+        
         const cartSummary = document.getElementById("cart-summary");
         cartContainer.insertBefore(cartItemDiv, cartSummary);
     });
 }
 
-// Update Cart Total
+
 const updateCartTotal = () => {
     cartTotal = cartItems.reduce((total, item) => {
         return total + (item.price * item.quantity);
