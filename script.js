@@ -3,7 +3,17 @@ const removeActive = () =>{
     categoryBtn.forEach((btn) => btn.classList.remove("active"));
 }
 
+// spinner
+const manageSpinner =(status)=>{
+    if(status == true){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("category").classList.add("hidden");
 
+    }else{
+        document.getElementById("category").classList.remove("hidden");
+        document.getElementById("spinner").classList.add("hidden");
+    }
+};
 
 const loadPlantDetails = async (id) => {
      manageSpinner(true);
